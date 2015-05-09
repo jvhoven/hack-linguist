@@ -57,8 +57,6 @@ exports.detect = function(dir) {
                    if(typeof(lang) != 'undefined')
                    languages.push(lang);
               }
-              
-              console.log(file + lang);
           }, this);
          }
     });
