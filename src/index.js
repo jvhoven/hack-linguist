@@ -3,15 +3,17 @@ var file 		= require("file");
 var util 		= require("util");
 var linguist 	= require("atom-linguist");
 
-// The allmighty languages array
-var languages = [];
-
 /*
 * Ignored languages array
 * TODO: possibly make configuration for this
 */
 var ignoredLanguages = [
-    'Text'
+    'Text', 'Markdown', 'JSON',
+    'YAML', 'Groff', 'Shell', 'Batchfile', 'XML'
+];
+
+var ignoredDirs = [
+    '.git', 'node_modules'
 ];
 
 /*
@@ -27,17 +29,38 @@ Array.prototype.contains = function(k) {
   return false;
 };
 
-exports.detect = function(dir) {
-    
-    file.walkSync(dir, function(dirPath, dirs, files) {
-        files.forEach(function(file) {
-            var lang = linguist.detect(dirPath + "\\" + file);
-            
-            if(!ignoredLanguages.contains(lang) && !languages.contains(lang))
-               languages.push(lang);
-              
-        }, this);
-    });
+// Filter all ignored dirs
+function isIgnoredDir(dirPath) {
+  
+  for(var i = 0; i < ignoredDirs.length; i++) {
+    if(dirPath.search(ignoredDirs[i]) > 0) {
+      return true;
+    }
+  }
+}
 
+exports.detect = function(dir) {
+  
+    // The allmighty languages array
+    var languages = [];
+  
+    file.walkSync(dir, function(dirPath, dirs, files) {
+        if(!isIgnoredDir(dirPath)){
+          files.forEach(function(file) {
+              var lang = linguist.detect(dirPath + "\\" + file);
+              
+              if(typeof(lang) != 'undefined') {
+                if(lang instanceof Array)
+                   lang = lang[lang.length - 1];
+                   
+                if(!ignoredLanguages.contains(lang) && !languages.contains(lang))
+                   if(typeof(lang) != 'undefined')
+                   languages.push(lang);
+              }
+              
+              console.log(file + lang);
+          }, this);
+         }
+    });
     return languages;
 };
