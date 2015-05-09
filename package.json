@@ -9,10 +9,8 @@
   },
   "dependencies": {
     "atom-linguist": "^0.1.0",
-    "file": "^0.2.2"
-  },
-  "devDependencies": {
-    "coffee-script": "^1.9.2"
+    "file": "^0.2.2",
+	"coffee-script": "^1.9.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
