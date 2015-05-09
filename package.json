@@ -21,5 +21,9 @@
     "linguist"
   ],
   "author": "Jeffrey van Hoven",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jvhoven/hack-linguist/issues"
+  },
+  "homepage": "https://github.com/jvhoven/hack-linguist"
 }

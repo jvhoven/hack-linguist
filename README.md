@@ -3,9 +3,13 @@
 Simple wrapper on top of [atom-linguist](https://github.com/lee-dohm/atom-linguist)
 
 The only difference is that hack-linguist is used to loop through a project dir and find all major programming languages.
+Beware though, this module is specifically created for my other project.
+
+USE AT OWN RISK
 
 # Installation
-soon
+```
+npm i hack-linguist
 
 # How to
 
