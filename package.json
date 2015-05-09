@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Wrapper around atom-linguist",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvhoven/hack-linguist.git"
+  },
   "dependencies": {
     "atom-linguist": "^0.1.0",
     "file": "^0.2.2"

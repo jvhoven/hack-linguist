@@ -1,6 +1,7 @@
 # Hack-linguist
 
-Simple wrapper on top of [atom-linguist]("https://github.com/lee-dohm/atom-linguist")
+Simple wrapper on top of [atom-linguist](https://github.com/lee-dohm/atom-linguist)
+
 The only difference is that hack-linguist is used to loop through a project dir and find all major programming languages.
 
 # Installation
