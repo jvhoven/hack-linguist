@@ -10,6 +10,7 @@ USE AT OWN RISK
 # Installation
 ```
 npm i hack-linguist
+```
 
 # How to
 
