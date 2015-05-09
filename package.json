@@ -1,0 +1,21 @@
+{
+  "name": "hack-linguist",
+  "version": "1.0.0",
+  "description": "Wrapper around atom-linguist",
+  "main": "src/index.js",
+  "dependencies": {
+    "atom-linguist": "^0.1.0",
+    "file": "^0.2.2"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "linguist"
+  ],
+  "author": "Jeffrey van Hoven",
+  "license": "MIT"
+}
