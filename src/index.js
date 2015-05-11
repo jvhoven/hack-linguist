@@ -13,7 +13,7 @@ var ignoredLanguages = [
 ];
 
 var ignoredDirs = [
-    '.git', 'node_modules'
+    '.git', 'node_modules', 'bower_components'
 ];
 
 /*
