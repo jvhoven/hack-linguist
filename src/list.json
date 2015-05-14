@@ -1,0 +1,14 @@
+{
+	"files": [
+		"file1",
+		"file2"
+	],
+	"directories": [
+		".git",
+		"node_modules",
+		"bower_components",
+		".svn",
+		"branches",
+		"tags"		
+	]
+}
