@@ -1,30 +1,28 @@
 var assert = require("assert");
-var gitignore = require("../src/gitignore.js");
+var linguist = require("../src/index.js");
 
-describe("gitignore utility functions", function() {
+describe("atom-linguist functions", function() {
 	
-	before(function() {
-		gitignore.test.init("test/.test-gitignore");
-	});
-	
-	describe("read()", function() {
-		it("should remove comments and whitespace from .test-gitignore and return an array", function(done) {
-			gitignore.read(function(err, data) {
-				if(err) throw(err);
-				assert.equal(11, data.length);
-				done();
+	describe("identify()", function() {
+		
+		var tests = [
+			{ file: "./test/samples/languages/configuration.ini", expected: "INI" },
+			{ file: "./test/samples/languages/cplusplus.cpp", expected: "C++" },
+			{ file: "./test/samples/languages/javascript.js", expected: "JavaScript" },
+			{ file: "./test/samples/languages/php.php", expected: "PHP" },
+			{ file: "./test/samples/languages/ruby.rb", expected: "Ruby" },
+			{ file: "./test/samples/languages/test.lua", expected: "Lua" }
+		];
+		
+		tests.forEach(function(test) {
+			it("should identify the programming language " + test.expected, function() {
+				linguist.identify(test.file, function(err, language) {
+					if(err) throw err;
+					assert.equal(language, test.expected);
+				});
 			});
 		});
-	});
-	
-	describe("sort()", function() {
-		it("should sort files and directories in two seperate arrays", function(done) {
-			gitignore.sort(function(directories, files) {
-				assert.equal(6, directories.length);
-				assert.equal(5, files.length);
-				done();
-			});
-		});
+		
 	});
 	
 });
