@@ -14,7 +14,7 @@ var linguist = require("hack-linguist");
 # API  
 
 **walkIdentify**: walks through a directory and identifies each file  
-**identify**: Identifies the programming language for a single file
+**identify**: Identifies the programming language for a single file  
 **identifySync**: Identifies the programming language for a file synchronously
 
 
