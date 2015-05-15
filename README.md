@@ -42,6 +42,20 @@ var language = linguist.identify('YOUR_FILE');
 var report = walkIdentifySync('YOUR_DIRECTORY');
 ```
 
+
+### walkIdentifySync with ignore list
+
+```
+var ignoreList = [
+	'*.js',
+	'node_modules',
+	'bower_components',
+	'.gitignore',
+];
+
+var report = walkIdentifySync('YOUR_DIRECTORY', ignoreList);
+```
+
 # Todo
 
 Create an asynchronous version of walkIdentifySync
