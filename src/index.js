@@ -1,45 +1,30 @@
 require("babel-polyfill");
 require("coffee-script/register")
-let fs = require("fs")
 let linguist = require("atom-linguist")
 
+import { isFile } from './util'
+import * as error from './errors'
+
 /*
-* Identify is a function that identifies the language of a given 
-* uri which should always lead to a file. 
-*
-* It's possible that it returns multiple languages.
-* The function will return a promise.
-*
-* @uri Location of a single file
+* A function that identifies the language of a given 
+* uri which should always lead to a file. It's possible that it returns multiple languages.
+* 
+* @uri {string} Location of a single file
+* @returns {Promise.<String|Array, Error>} A promise that returns an array or string of the 
+* identified language(s) if resolved, or an error if rejected.
 */
-export async function identify (uri) {
- 	return new Promise((resolve, reject) => {
-		//let fileInfo = await fs.stat(uri)
-		//console.log(fileInfo)
-		file === 'test' ? resolve(file) : reject('Is not test')
-	})
-}
-
-async function print() {
-  try {
-    var test = await identify('test')
-    console.log(test)
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-const stat = (uri) => new Promise((resolve, reject) => {
-	(resolve, reject) => fs.stat('index.js', (err, res) => err ? reject(err) : resolve(res))
+const identify = (uri) => new Promise((resolve, reject) => {
+	if(isFile(uri)) {
+		let language = linguist.detect(uri)
+		resolve(language)
+	} else {
+		reject(error.NOT_A_FILE)
+	}
 })
 
-async function testStat(uri) {
-	try {
-		let test = await stat(uri)
-		console.log(test)
-	} catch (e) {
-		console.log(e)
-	}
-}
+// async function test() {
+// 	let language = await identify('./src/index.js')
+// 	console.log(language)
+// }
 
-testStat('./index.js')
+// test()

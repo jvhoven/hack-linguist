@@ -1,0 +1,1 @@
+export const NOT_A_FILE = "Target URI is not a file."
