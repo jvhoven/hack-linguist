@@ -10,9 +10,9 @@ import { join } from 'path'
 * and an error if it gets rejected.
 */
 export const pstat = (uri) => {
-	return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
      stat(uri, (err, data) => err != null ? reject(err) : resolve(data))
-	})
+  })
 }
 
 /*
@@ -23,9 +23,9 @@ export const pstat = (uri) => {
 * and an error if it gets rejected.
 */
 export const preaddir = (dir) => {
-	return new Promise((resolve, reject) => {
-		readdir(dir, (err, data) => err != null ? reject(err) : resolve(data))
-	})
+  return new Promise((resolve, reject) => {
+    readdir(dir, (err, data) => err != null ? reject(err) : resolve(data))
+  })
 }
 
 /*
@@ -39,38 +39,38 @@ export const preaddir = (dir) => {
 */
 export async function walk (dir) {
   return new Promise(async (resolve, reject) => {
-  	try {
-	  	const list = await preaddir(dir)
+    try {
+      const list = await preaddir(dir)
 
-	  	let results = []
-	  	let pending = list.length;
+      let results = []
+      let pending = list.length;
 
-		  if (!pending) {
-		  	resolve(results)
-		  }
+      if (!pending) {
+        resolve(results)
+      }
 
-		  list.forEach(async (file) => {
-		  	file = join(dir, file)
-		  	let stat = await pstat(file)
+      list.forEach(async (file) => {
+        file = join(dir, file)
+        let stat = await pstat(file)
 
         // If we
-		  	if(stat && stat.isDirectory()) {
-		  		let res = await walk(file)
-		  		results = results.concat(res)
+        if(stat && stat.isDirectory()) {
+          let res = await walk(file)
+          results = results.concat(res)
 
-		  		// If this was the last one
-		  		if (--pending === 0) {
-		  			resolve(results)
-		  		}
-		  	} else {
-		  		results.push(file)
-		  		if (--pending === 0) {
-		  			resolve(results)
-		  		}
-		  	}
-		  })
-	  } catch (e) {
-	  	reject(e)
-	  }
-	})
+          // If this was the last one
+          if (--pending === 0) {
+            resolve(results)
+          }
+        } else {
+          results.push(file)
+          if (--pending === 0) {
+            resolve(results)
+          }
+        }
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
 }

@@ -23,45 +23,45 @@ var linguist = require("atom-linguist");
 * identified language(s) if resolved, or an error if rejected.
 */
 var identify = function identify(uri) {
-	return new Promise(function (resolve, reject) {
-		if ((0, _util.isFile)(uri)) {
-			var language = linguist.detect(uri);
-			resolve(language);
-		} else {
-			reject(error.NOT_A_FILE);
-		}
-	});
+  return new Promise(function (resolve, reject) {
+    if ((0, _util.isFile)(uri)) {
+      var language = linguist.detect(uri);
+      resolve(language);
+    } else {
+      reject(error.NOT_A_FILE);
+    }
+  });
 };
 
 function walkIdentify(folder, ignored) {
-	var coll;
-	return regeneratorRuntime.async(function walkIdentify$(_context) {
-		while (1) {
-			switch (_context.prev = _context.next) {
-				case 0:
-					_context.prev = 0;
-					_context.next = 3;
-					return regeneratorRuntime.awrap((0, _fs.walk)(folder));
+  var coll;
+  return regeneratorRuntime.async(function walkIdentify$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return regeneratorRuntime.awrap((0, _fs.walk)(folder));
 
-				case 3:
-					coll = _context.sent;
+        case 3:
+          coll = _context.sent;
 
-					console.log(coll);
-					_context.next = 10;
-					break;
+          console.log(coll);
+          _context.next = 10;
+          break;
 
-				case 7:
-					_context.prev = 7;
-					_context.t0 = _context["catch"](0);
+        case 7:
+          _context.prev = 7;
+          _context.t0 = _context["catch"](0);
 
-					console.error(_context.t0);
+          console.error(_context.t0);
 
-				case 10:
-				case "end":
-					return _context.stop();
-			}
-		}
-	}, null, this, [[0, 7]]);
+        case 10:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, this, [[0, 7]]);
 }
 
 var identified = walkIdentify('./src', null);

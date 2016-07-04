@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.preaddir = exports.pstat = undefined;
 exports.walk = walk;
@@ -20,11 +20,11 @@ var _path = require('path');
 * and an error if it gets rejected.
 */
 var pstat = exports.pstat = function pstat(uri) {
-	return new Promise(function (resolve, reject) {
-		(0, _fs.stat)(uri, function (err, data) {
-			return err != null ? reject(err) : resolve(data);
-		});
-	});
+  return new Promise(function (resolve, reject) {
+    (0, _fs.stat)(uri, function (err, data) {
+      return err != null ? reject(err) : resolve(data);
+    });
+  });
 };
 
 /*
@@ -35,11 +35,11 @@ var pstat = exports.pstat = function pstat(uri) {
 * and an error if it gets rejected.
 */
 var preaddir = exports.preaddir = function preaddir(dir) {
-	return new Promise(function (resolve, reject) {
-		(0, _fs.readdir)(dir, function (err, data) {
-			return err != null ? reject(err) : resolve(data);
-		});
-	});
+  return new Promise(function (resolve, reject) {
+    (0, _fs.readdir)(dir, function (err, data) {
+      return err != null ? reject(err) : resolve(data);
+    });
+  });
 };
 
 /*
@@ -52,115 +52,115 @@ var preaddir = exports.preaddir = function preaddir(dir) {
 * http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
 */
 function walk(dir) {
-	var _this = this;
+  var _this = this;
 
-	return regeneratorRuntime.async(function walk$(_context4) {
-		while (1) {
-			switch (_context4.prev = _context4.next) {
-				case 0:
-					return _context4.abrupt('return', new Promise(function _callee3(resolve, reject) {
-						return regeneratorRuntime.async(function _callee3$(_context3) {
-							while (1) {
-								switch (_context3.prev = _context3.next) {
-									case 0:
-										_context3.prev = 0;
-										_context3.next = 3;
-										return regeneratorRuntime.awrap(function _callee2() {
-											var list, results, pending;
-											return regeneratorRuntime.async(function _callee2$(_context2) {
-												while (1) {
-													switch (_context2.prev = _context2.next) {
-														case 0:
-															_context2.next = 2;
-															return regeneratorRuntime.awrap(preaddir(dir));
+  return regeneratorRuntime.async(function walk$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          return _context4.abrupt('return', new Promise(function _callee3(resolve, reject) {
+            return regeneratorRuntime.async(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.prev = 0;
+                    _context3.next = 3;
+                    return regeneratorRuntime.awrap(function _callee2() {
+                      var list, results, pending;
+                      return regeneratorRuntime.async(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              _context2.next = 2;
+                              return regeneratorRuntime.awrap(preaddir(dir));
 
-														case 2:
-															list = _context2.sent;
-															results = [];
-															pending = list.length;
+                            case 2:
+                              list = _context2.sent;
+                              results = [];
+                              pending = list.length;
 
 
-															if (!pending) {
-																resolve(results);
-															}
+                              if (!pending) {
+                                resolve(results);
+                              }
 
-															list.forEach(function _callee(file) {
-																var stat, res;
-																return regeneratorRuntime.async(function _callee$(_context) {
-																	while (1) {
-																		switch (_context.prev = _context.next) {
-																			case 0:
-																				file = (0, _path.join)(dir, file);
-																				_context.next = 3;
-																				return regeneratorRuntime.awrap(pstat(file));
+                              list.forEach(function _callee(file) {
+                                var stat, res;
+                                return regeneratorRuntime.async(function _callee$(_context) {
+                                  while (1) {
+                                    switch (_context.prev = _context.next) {
+                                      case 0:
+                                        file = (0, _path.join)(dir, file);
+                                        _context.next = 3;
+                                        return regeneratorRuntime.awrap(pstat(file));
 
-																			case 3:
-																				stat = _context.sent;
+                                      case 3:
+                                        stat = _context.sent;
 
-																				if (!(stat && stat.isDirectory())) {
-																					_context.next = 12;
-																					break;
-																				}
+                                        if (!(stat && stat.isDirectory())) {
+                                          _context.next = 12;
+                                          break;
+                                        }
 
-																				_context.next = 7;
-																				return regeneratorRuntime.awrap(walk(file));
+                                        _context.next = 7;
+                                        return regeneratorRuntime.awrap(walk(file));
 
-																			case 7:
-																				res = _context.sent;
+                                      case 7:
+                                        res = _context.sent;
 
-																				results = results.concat(res);
+                                        results = results.concat(res);
 
-																				// If this was the last one
-																				if (--pending === 0) {
-																					resolve(results);
-																				}
-																				_context.next = 14;
-																				break;
+                                        // If this was the last one
+                                        if (--pending === 0) {
+                                          resolve(results);
+                                        }
+                                        _context.next = 14;
+                                        break;
 
-																			case 12:
-																				results.push(file);
-																				if (--pending === 0) {
-																					resolve(results);
-																				}
+                                      case 12:
+                                        results.push(file);
+                                        if (--pending === 0) {
+                                          resolve(results);
+                                        }
 
-																			case 14:
-																			case 'end':
-																				return _context.stop();
-																		}
-																	}
-																}, null, _this);
-															});
+                                      case 14:
+                                      case 'end':
+                                        return _context.stop();
+                                    }
+                                  }
+                                }, null, _this);
+                              });
 
-														case 7:
-														case 'end':
-															return _context2.stop();
-													}
-												}
-											}, null, _this);
-										}());
+                            case 7:
+                            case 'end':
+                              return _context2.stop();
+                          }
+                        }
+                      }, null, _this);
+                    }());
 
-									case 3:
-										_context3.next = 8;
-										break;
+                  case 3:
+                    _context3.next = 8;
+                    break;
 
-									case 5:
-										_context3.prev = 5;
-										_context3.t0 = _context3['catch'](0);
+                  case 5:
+                    _context3.prev = 5;
+                    _context3.t0 = _context3['catch'](0);
 
-										reject(_context3.t0);
+                    reject(_context3.t0);
 
-									case 8:
-									case 'end':
-										return _context3.stop();
-								}
-							}
-						}, null, _this, [[0, 5]]);
-					}));
+                  case 8:
+                  case 'end':
+                    return _context3.stop();
+                }
+              }
+            }, null, _this, [[0, 5]]);
+          }));
 
-				case 1:
-				case 'end':
-					return _context4.stop();
-			}
-		}
-	}, null, this);
+        case 1:
+        case 'end':
+          return _context4.stop();
+      }
+    }
+  }, null, this);
 }

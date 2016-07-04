@@ -15,21 +15,21 @@ import { walk } from './fs'
 * identified language(s) if resolved, or an error if rejected.
 */
 const identify = (uri) => new Promise((resolve, reject) => {
-	if(isFile(uri)) {
-		let language = linguist.detect(uri)
-		resolve(language)
-	} else {
-		reject(error.NOT_A_FILE)
-	}
+  if(isFile(uri)) {
+    let language = linguist.detect(uri)
+    resolve(language)
+  } else {
+    reject(error.NOT_A_FILE)
+  }
 })
 
 async function walkIdentify (folder, ignored) {
-	try {
-		const coll = await walk(folder)
-		console.log(coll)
-	} catch(e) {
-		console.error(e)
-	}
+  try {
+    const coll = await walk(folder)
+    console.log(coll)
+  } catch(e) {
+    console.error(e)
+  }
 }
 
 const identified = walkIdentify('./src', null)
