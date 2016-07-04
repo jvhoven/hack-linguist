@@ -4,10 +4,11 @@ let linguist = require("atom-linguist")
 
 import { isFile } from './util'
 import * as error from './errors'
+import { walk } from './fs'
 
 /*
-* A function that identifies the language of a given 
-* uri which should always lead to a file. It's possible that it returns multiple languages.
+* A function that identifies the language of a given URI.
+* It's possible that it returns multiple languages.
 * 
 * @uri {string} Location of a single file
 * @returns {Promise.<String|Array, Error>} A promise that returns an array or string of the 
@@ -22,9 +23,13 @@ const identify = (uri) => new Promise((resolve, reject) => {
 	}
 })
 
-// async function test() {
-// 	let language = await identify('./src/index.js')
-// 	console.log(language)
-// }
+async function walkIdentify (folder, ignored) {
+	try {
+		const coll = await walk(folder)
+		console.log(coll)
+	} catch(e) {
+		console.error(e)
+	}
+}
 
-// test()
+const identified = walkIdentify('./src', null)

@@ -10,7 +10,8 @@
   "dependencies": {
     "atom-linguist": "^0.1.0",
     "coffee-script": "^1.9.2",
-    "file": "^0.2.2"
+    "file": "^0.2.2",
+    "js-yaml": "3.2.5"
   },
   "scripts": {
     "build": "babel src --out-dir dist"
