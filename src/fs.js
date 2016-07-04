@@ -52,8 +52,7 @@ export async function walk (dir) {
       list.forEach(async (file) => {
         file = join(dir, file)
         let stat = await pstat(file)
-
-        // If we
+        
         if(stat && stat.isDirectory()) {
           let res = await walk(file)
           results = results.concat(res)
