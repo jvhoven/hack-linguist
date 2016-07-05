@@ -15,7 +15,7 @@ require("coffee-script/register");
 var linguist = require("atom-linguist");
 
 /*
-* A function that identifies the language of a given URI.
+* Identifies the language of a given URI.
 * It's possible that it returns multiple languages.
 * 
 * @uri {string} Location of a single file
@@ -23,45 +23,53 @@ var linguist = require("atom-linguist");
 * identified language(s) if resolved, or an error if rejected.
 */
 var identify = function identify(uri) {
-  return new Promise(function (resolve, reject) {
-    if ((0, _util.isFile)(uri)) {
-      var language = linguist.detect(uri);
-      resolve(language);
-    } else {
-      reject(error.NOT_A_FILE);
-    }
-  });
+	new Promise(function (resolve, reject) {
+		(0, _util.isFile)(uri) ? resolve(linguist.detect(uri)) : reject(error.NOT_A_FILE);
+	});
 };
 
-function walkIdentify(folder, ignored) {
-  var coll;
-  return regeneratorRuntime.async(function walkIdentify$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.prev = 0;
-          _context.next = 3;
-          return regeneratorRuntime.awrap((0, _fs.walk)(folder));
+var walkIdentify = function walkIdentify(folder, ignored) {
+	new Promise(function _callee(resolve, reject) {
+		var collection, sorted, filtered;
+		return regeneratorRuntime.async(function _callee$(_context) {
+			while (1) {
+				switch (_context.prev = _context.next) {
+					case 0:
+						_context.prev = 0;
+						_context.next = 3;
+						return regeneratorRuntime.awrap((0, _fs.walk)(folder));
 
-        case 3:
-          coll = _context.sent;
+					case 3:
+						collection = _context.sent;
+						_context.next = 6;
+						return regeneratorRuntime.awrap((0, _util.sort)(collection));
 
-          console.log(coll);
-          _context.next = 10;
-          break;
+					case 6:
+						sorted = _context.sent;
+						_context.next = 9;
+						return regeneratorRuntime.awrap((0, _util.filter)(sorted, ignored));
 
-        case 7:
-          _context.prev = 7;
-          _context.t0 = _context["catch"](0);
+					case 9:
+						filtered = _context.sent;
 
-          console.error(_context.t0);
+						console.log(filtered);
+						_context.next = 16;
+						break;
 
-        case 10:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, null, this, [[0, 7]]);
-}
+					case 13:
+						_context.prev = 13;
+						_context.t0 = _context["catch"](0);
 
-var identified = walkIdentify('./src', null);
+						console.error(_context.t0);
+
+					case 16:
+					case "end":
+						return _context.stop();
+				}
+			}
+		}, null, undefined, [[0, 13]]);
+	});
+};
+
+// const identified = identify('./src/index.js').then((result) => console.log(result))
+walkIdentify('test', { directories: ['config', 'bats'], files: ['php.php', 'test.lua'] });

@@ -1,5 +1,5 @@
 import { stat, readdir, statSync } from 'fs'
-import { isDir } from './util'
+import { isDir, File } from './util'
 import { join } from 'path'
 
 /*
@@ -9,7 +9,7 @@ import { join } from 'path'
 * @returns {Promise.<String, String>} Returns a promise which gives the stat data of the file when resolved,
 * and an error if it gets rejected.
 */
-export const pstat = (uri) => {
+export const pstat = uri => {
   return new Promise((resolve, reject) => {
      stat(uri, (err, data) => err != null ? reject(err) : resolve(data))
   })
@@ -22,7 +22,7 @@ export const pstat = (uri) => {
 * @returns {Promise.<String, Array>} Returns a promise which gives the directory contents when resolved,
 * and an error if it gets rejected.
 */
-export const preaddir = (dir) => {
+export const preaddir = dir => {
   return new Promise((resolve, reject) => {
     readdir(dir, (err, data) => err != null ? reject(err) : resolve(data))
   })
@@ -37,7 +37,7 @@ export const preaddir = (dir) => {
 *
 * http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
 */
-export async function walk (dir) {
+export const walk = dir => {
   return new Promise(async (resolve, reject) => {
     try {
       const list = await preaddir(dir)
@@ -53,8 +53,10 @@ export async function walk (dir) {
         file = join(dir, file)
         let stat = await pstat(file)
         
+        // Directory
         if(stat && stat.isDirectory()) {
           let res = await walk(file)
+          results.push(new File(dir, file))
           results = results.concat(res)
 
           // If this was the last one
@@ -62,7 +64,8 @@ export async function walk (dir) {
             resolve(results)
           }
         } else {
-          results.push(file)
+        	// File
+          results.push(new File(dir, file))
           if (--pending === 0) {
             resolve(results)
           }
